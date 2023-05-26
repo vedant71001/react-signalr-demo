@@ -10,6 +10,7 @@ export const ChatWindow = (props: ChatWindowProp) => {
           key={props.messages.indexOf(message)}
           user={message.user}
           message={message.message}
+          isAudio={message.isAudio}
         />
       ))}
     </div>
