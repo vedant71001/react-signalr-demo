@@ -1,0 +1,11 @@
+.file-card{
+    text-align: left;
+}
+
+.file-icon{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #636363;
+    margin-right: 20px !important;
+    margin-bottom: 10px !important;
+}
