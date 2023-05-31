@@ -48,11 +48,14 @@ export const Chat = () => {
     }
   };
 
-  useEffect(() => {
+  useEffect(()=>{
     const connection = new HubConnectionBuilder()
       .withUrl("https://localhost:7042/hubs/chat")
       .build();
     setConnection(connection);
+  },[])
+
+  useEffect(() => {
     if (user) {
       fileService.GetFiles(user.userId).then((res) => {
         setFiles(res);

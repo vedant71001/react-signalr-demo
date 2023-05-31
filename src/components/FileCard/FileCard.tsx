@@ -8,6 +8,7 @@ import DownloadIcon from "@mui/icons-material/Download";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { baseUrl } from "../../constants/constants";
 import fileService from "../../services/files.services";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
 export const FileCard = (
   props: UserFile & { onDelete: (userFileId: number) => void }
@@ -16,6 +17,7 @@ export const FileCard = (
     let userFileId = Number.parseInt(event.currentTarget.id.split("_")[1]);
     props.onDelete(userFileId);
   };
+  const fileType = props.fileName.split(".")[1];
 
   const downloadFileHandler = () => {
     fileService.DownloadFile(props.filePath).then((res) => {
@@ -28,7 +30,17 @@ export const FileCard = (
     });
   };
 
-  const fileType = props.fileName.split(".")[1];
+  const filePreviewHandler = () => {
+    fileService.DownloadFile(props.filePath).then((res) => {
+      let link = document.createElement("a");
+      link.href = URL.createObjectURL(res);
+      link.target = "_blank";
+      document.getElementById("downloadBtn")?.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+    });
+  };
+
   return (
     <Grid container className="file-card">
       <Grid item xs={1} className="file-icon">
@@ -36,17 +48,18 @@ export const FileCard = (
         {(fileType === "png" || fileType === "jpg") && <ImageIcon />}
         {!["pdf", "png", "jpg"].includes(fileType) && <DescriptionIcon />}
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={7}>
         {props.fileName}
       </Grid>
       <Grid item xs={2} className="d-flex">
         <div id="downloadBtn"></div>
+
         <Button
           variant="contained"
           color="warning"
           className="m-2"
           onClick={downloadFileHandler}
-        >
+          >
           <DownloadIcon />
         </Button>
         <Button
@@ -55,9 +68,18 @@ export const FileCard = (
           className="m-2"
           id={`file_${props.userFilesId}`}
           onClick={deleteHandler}
-        >
+          >
           <DeleteIcon />
         </Button>
+          {["pdf", "png", "jpg"].includes(fileType) && (
+            <Button
+              variant="contained"
+              className="m-2"
+              onClick={filePreviewHandler}
+            >
+              <RemoveRedEyeIcon />
+            </Button>
+          )}
       </Grid>
     </Grid>
   );

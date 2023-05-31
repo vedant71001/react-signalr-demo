@@ -6,7 +6,7 @@ class FileService {
   ENDPOINT = "api/Files";
 
   public async UploadFile(param: FileUploadModel) {
-    const url = `${this.ENDPOINT}/UploadFile?UserId=${param.UserId}`;
+    const url = `${this.ENDPOINT}/UploadFileWithTrigger?UserId=${param.UserId}`;
     const formData = new FormData();
     formData.append("File", param.File);
     return request

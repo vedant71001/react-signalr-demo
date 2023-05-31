@@ -3,4 +3,5 @@
     width: 700px;
     border-radius: 10px;
     height: 700px;
+    overflow-y: scroll;
 }

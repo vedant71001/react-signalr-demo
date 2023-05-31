@@ -14,7 +14,7 @@ export const FileUploader = (props: FileUploaderProp) => {
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (file) {
-      props.onFileUpload(file);
+      props.onFileUpload(file);     
     }
   };
 
